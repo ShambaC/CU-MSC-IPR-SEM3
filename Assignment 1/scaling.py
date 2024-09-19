@@ -19,6 +19,9 @@ def nearest(src : cv2.typing.MatLike, scale : any = 2) -> np.ndarray :
     """
 
     h, w, c = src.shape
+
+    """
+    # For loop method
     res = np.empty((int(h  * scale), int(w  * scale), c), np.uint8)
     
     with np.nditer(res, flags=['multi_index'], op_flags=['readwrite']) as it :
@@ -27,10 +30,20 @@ def nearest(src : cv2.typing.MatLike, scale : any = 2) -> np.ndarray :
             pixel[...] = src[int(x / scale), int(y / scale), z]
 
     return res
+    """
+
+    # Vectorized method
+    new_h, new_w = int(h * scale), int(w * scale)
+    row, col = np.indices((new_h, new_w))
+
+    x_src = (row / scale).astype(int)
+    y_src = (col / scale).astype(int)
+
+    return src[x_src, y_src]
 
 
 def bilinear(src : cv2.typing.MatLike, scale : int = 2) :
-    pass
+    ...
 
 @click.command()
 @click.option('--file', '-F', help='Absolute location of the image file')
