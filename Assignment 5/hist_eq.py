@@ -36,21 +36,23 @@ def main(file) :
 
     plt.subplot(2, 2, 1)
     plt.imshow(img, cmap='gray')
+    plt.title("Original")
     
     plt.subplot(2, 2, 2)
     plt.imshow(img_eq, cmap='gray')
+    plt.title("Equalized")
 
     plt.subplot(2, 2, 3)
     plt.bar(level, count)
     plt.xlabel("Levels")
     plt.ylabel("Count")
-    plt.title("Original histogram")
 
     plt.subplot(2, 2, 4)
     plt.bar(level_eq, count_eq)
     plt.xlabel("Levels")
     plt.ylabel("Count")
-    plt.title("equalized histogram")
+
+    plt.subplot_tool()
 
     plt.show()
 
